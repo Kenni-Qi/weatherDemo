@@ -48,7 +48,7 @@ public class TestServiceImpl implements TestService{
         else if(cityValue.equals("Wollongong")) {
         	 wentity.setCity("Wollongong");
 	         location = "150.88,-34.43";
-        }
+        } 
         else {
         	wentity.setUpdatetime("");
         	wentity.setTemperature("");
