@@ -60,10 +60,10 @@ public class TestServiceImpl implements TestService{
 		StringBuilder sb=new StringBuilder();
 		String weatherKey = System.getenv("weatherKey");
 		String weatherUrl = System.getenv("weatherUrl");
-		System.out.println(weatherUrl+location+weatherKey); 
+		System.out.println(weatherUrl+location+weatherKey);
 		try {
 		URL url = new URL(weatherUrl+location+weatherKey);
-		URLConnection conn = url.openConnection();
+        URLConnection conn = url.openConnection();
 		InputStream is = conn.getInputStream();
 		GZIPInputStream gzin = new GZIPInputStream(is);
 		InputStreamReader isr = new InputStreamReader(gzin, "utf-8");
