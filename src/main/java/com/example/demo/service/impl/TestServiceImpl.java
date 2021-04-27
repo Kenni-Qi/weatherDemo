@@ -58,11 +58,11 @@ public class TestServiceImpl implements TestService{
         }
 		
 		StringBuilder sb=new StringBuilder();
-		String key = System.getenv("weatherKey");
-		System.out.println(key);
-//		String key = "6741966bb4cf4896844d423847c2bad1"; 
+		String weatherKey = System.getenv("weatherKey");
+		String weatherUrl = System.getenv("weatherUrl");
+		System.out.println(weatherUrl+location+weatherKey); 
 		try {
-		URL url = new URL("https://devapi.qweather.com/v7/weather/now?location="+ location +"&key="+ key +"");
+		URL url = new URL(weatherUrl+location+weatherKey);
 		URLConnection conn = url.openConnection();
 		InputStream is = conn.getInputStream();
 		GZIPInputStream gzin = new GZIPInputStream(is);

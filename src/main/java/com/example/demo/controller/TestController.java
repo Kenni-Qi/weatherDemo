@@ -49,7 +49,6 @@ public class TestController {
 	@RequestMapping(value = "/getWeatherInfo", method = RequestMethod.POST)
 	public void getWeatherInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam String cityValue)
 			throws IOException, ParseException {
-		System.out.println(cityValue);
 		response.setContentType("text/text;charset=UTF-8");
 		PrintWriter writer = response.getWriter();
 		WeatherEntity weEntity = testServiceImpl.getWeather(cityValue);
