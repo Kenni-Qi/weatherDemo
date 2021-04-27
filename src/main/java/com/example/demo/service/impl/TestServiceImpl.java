@@ -58,7 +58,7 @@ public class TestServiceImpl implements TestService{
         }
 		
 		StringBuilder sb=new StringBuilder();
-		String key = "6741966bb4cf4896844d423847c2bad1";
+		String key = "6741966bb4cf4896844d423847c2bad1"; 
 		try {
 		URL url = new URL("https://devapi.qweather.com/v7/weather/now?location="+ location +"&key="+ key +"");
 		URLConnection conn = url.openConnection();
