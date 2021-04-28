@@ -6,11 +6,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +26,10 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.impl.TestDaoImpl;
+import com.example.demo.entity.CityEntity;
 import com.example.demo.entity.WeatherEntity;
 import com.example.demo.service.TestService;
+import com.google.gson.Gson;
 
 
 
@@ -60,7 +69,6 @@ public class TestServiceImpl implements TestService{
 		StringBuilder sb=new StringBuilder();
 		String weatherKey = System.getenv("weatherKey");
 		String weatherUrl = System.getenv("weatherUrl");
-		System.out.println(weatherUrl+location+weatherKey);
 		try {
 		URL url = new URL(weatherUrl+location+weatherKey);
         URLConnection conn = url.openConnection();
@@ -72,13 +80,13 @@ public class TestServiceImpl implements TestService{
 		while((line=reader.readLine())!=null)
 			sb.append(line+" ");
 		reader.close();
-	} catch (UnsupportedEncodingException e) {
-		e.printStackTrace();
-	} catch (MalformedURLException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
+	  } catch (UnsupportedEncodingException e) {
+	   	  e.printStackTrace();
+	  } catch (MalformedURLException e) {
+		  e.printStackTrace();
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }
     	JSONObject obj = JSON.parseObject(sb.toString());
     	String updateTime = obj.getString("updateTime").replaceAll("T"," ");
     	wentity.setUpdatetime(updateTime);
@@ -88,6 +96,39 @@ public class TestServiceImpl implements TestService{
     	wentity.setWind(jsonObj.getString("windSpeed")+"km/h");
 	
         return wentity;
+	}
+	
+	public String getCityListJson() throws IOException, ParseException {
+		ArrayList<String> cityList = new ArrayList<String>();
+		//Get citylist from Table
+		List<CityEntity> cityEntitylist = testDaoImpl.getCityDetail();
+		Iterator <CityEntity> interatorCityList = cityEntitylist.iterator();
+		
+		while(interatorCityList.hasNext())
+		{
+			CityEntity centity = interatorCityList.next();
+			
+			cityList.add(centity.getCity());
+		}
+		//Hash cade
+	    HashSet<String> hsReviewTypeList = new  HashSet<String>(cityList);
+	    cityList.clear();
+	    cityList.addAll(hsReviewTypeList);
+
+	    Gson gson = new Gson();
+
+		return  gson.toJson(cityList);
+		
+	}
+	
+	public Connection getConnection() throws URISyntaxException, SQLException {
+	    URI dbUri = new URI(System.getenv("DATABASE_URL"));
+	    String username = dbUri.getUserInfo().split(":")[0];
+	    String password = dbUri.getUserInfo().split(":")[1];
+	    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+	    System.out.println(dbUrl);
+
+	    return DriverManager.getConnection(dbUrl, username, password);
 	}
 	
 }

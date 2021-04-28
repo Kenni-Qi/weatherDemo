@@ -4,10 +4,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/Weather/weather.js?2020042602"></script>
+
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Weather/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Weather/jquery.pagination.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/Weather/weather.js?2020042602"></script>
 
+
+<form:form  modelAttribute="weEntity" >
+		
+<form:hidden path="cityListJson" />
 		
     <table width="30%"  align='center' border='1' cellspacing='2'>
     
@@ -17,9 +22,6 @@
             <td>
             <select style="width:100%;" onchange="return cityChange(this.options[this.options.selectedIndex].value)" name="citySelect" id="citySelect">
 						<option value="none">Please Choose City</option>
-						<option value="Sydney">Sydney</option>
-						<option value="Melbourne">Melbourne</option>
-						<option value="Wollongong">Wollongong</option>
 			</select>
             </td>
         </tr>
@@ -58,4 +60,6 @@
         
          
     </table>
+    
+</form:form>
    

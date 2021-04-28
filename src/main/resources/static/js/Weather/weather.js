@@ -1,10 +1,15 @@
-$(document).ready(function(){
-	$("#updatetime").attr("disabled","disabled");
-	$("#weather").attr("disabled","disabled");
-	$("#temperature").attr("disabled","disabled");
-	$("#wind").attr("disabled","disabled");
+$(document).ready(function(){ 
+	init();
 	});
 	
+function init(){
+	//Init cityListJson
+	var cityListJson = jQuery.parseJSON($("#cityListJson").val());
+	$.each(cityListJson,function(i,obj){
+		 $("#citySelect").append("<option value='"+obj+"'>"+obj+"</option>")
+	});
+}	
+
 function cityChange(cityValue){
 				$.ajax({
 				       type: "POST",

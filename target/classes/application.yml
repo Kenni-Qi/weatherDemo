@@ -2,7 +2,6 @@ server:
   port: 8082
 # servlet:
 #    context-path: /Weather
-
 spring:
       thymeleaf:
           cache: false

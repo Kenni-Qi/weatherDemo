@@ -1,13 +1,6 @@
 package com.example.demo.entity;
 
-import java.util.Date;
-
 public class WeatherEntity {
-	// id,rev
-	private String _id;
-
-	private String _rev;
-	
 	// docType
 	private String docType = "weather";
 	
@@ -20,10 +13,14 @@ public class WeatherEntity {
     private String weather;
     private String temperature;
     private String wind;
+    private String cityListJson;
     
 	
-	public String get_id() {
-		return _id;
+	public String getCityListJson() {
+		return cityListJson;
+	}
+	public void setCityListJson(String cityListJson) {
+		this.cityListJson = cityListJson;
 	}
 	public String getDocType() {
 		return docType;
@@ -60,15 +57,6 @@ public class WeatherEntity {
 	}
 	public void setWind(String wind) {
 		this.wind = wind;
-	}
-	public void set_id(String _id) {
-		this._id = _id;
-	}
-	public String get_rev() {
-		return _rev;
-	}
-	public void set_rev(String _rev) {
-		this._rev = _rev;
 	}
 	
 }
