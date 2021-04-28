@@ -12,7 +12,7 @@
 
 <form:form  modelAttribute="weEntity" >
 		
-<form:hidden path="cityListJson" /> 
+<form:hidden path="cityListJson" />
 		
     <table width="30%"  align='center' border='1' cellspacing='2'>
     
