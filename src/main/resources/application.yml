@@ -11,10 +11,14 @@ spring:
           view:
             prefix: /WEB-INF/jsp/
             suffix: .jsp
-          static-path-pattern: /**
 
       main:
         allow-bean-definition-overriding: true
+
+      cloud:
+        config:
+           server:
+              skip-ssl-validation: true
         
 #      mail:
 #        host: 
